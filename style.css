@@ -1,0 +1,30 @@
+h1,
+p,
+body {
+  margin: 0;
+}
+
+body,
+button,
+input {
+  font-family: "Roboto Slab", serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
