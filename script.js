@@ -9,6 +9,8 @@ import { getRandomInt } from "./utils/helpers.js";
 
 const $ = (query) => document.querySelector(query);
 
+const mode = new URLSearchParams(location.search).get("mode");
+
 const game = $("#game");
 game.addEventListener("submit", handleCitySubmit);
 
@@ -37,7 +39,13 @@ function handlePlayerGuess(city) {
   const formattedCity = formatCity(city);
   if (isCityValid(previousCity, formattedCity, cities)) {
     cities = removeCity(formattedCity, cities);
-    handleComputerGuess(formattedCity);
+    if (mode === "solo") {
+      setPreviousCity(formattedCity);
+
+      if (!isGuessPossible(previousCity, cities)) endGame();
+    } else {
+      handleComputerGuess(formattedCity);
+    }
   } else {
     cityMessage.textContent = "city not found";
   }
@@ -50,8 +58,7 @@ function handleComputerGuess(playerCity) {
     const randomCity = suitableCities[getRandomInt(suitableCities.length)];
     cities = removeCity(randomCity, cities);
 
-    previousCity = randomCity;
-    previousCityContainer.textContent = previousCity;
+    setPreviousCity(randomCity);
 
     // next user guess
     if (!isGuessPossible(previousCity, cities)) endGame();
@@ -64,7 +71,6 @@ const restart = $("#restart");
 function endGame() {
   cityMessage.textContent = "all cities guessed";
   restart.classList.remove("not-visible");
-  console.log(restart);
 }
 
 restart.addEventListener("click", handleRestart);
@@ -78,4 +84,9 @@ function handleRestart() {
   cityMessage.innerHTML = "&nbsp;";
   previousCityContainer.innerHTML = "&nbsp;";
   city.value = "";
+}
+
+function setPreviousCity(city) {
+  previousCity = city;
+  previousCityContainer.textContent = previousCity;
 }
