@@ -28,3 +28,7 @@ body {
 .hidden {
   display: none;
 }
+
+.not-visible {
+  visibility: hidden;
+}

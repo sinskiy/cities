@@ -9,13 +9,10 @@ import { getRandomInt } from "./utils/helpers.js";
 
 const $ = (query) => document.querySelector(query);
 
-const play = $("#play");
 const game = $("#game");
-
-play.addEventListener("click", handlePlayClick);
 game.addEventListener("submit", handleCitySubmit);
 
-let cities = [
+const initialCities = [
   "moscow",
   "washington",
   "nice",
@@ -24,6 +21,8 @@ let cities = [
   "kuala lumpur",
   "riga",
 ];
+
+let cities = [...initialCities];
 let previousCity = null;
 
 const city = $("#city");
@@ -55,15 +54,28 @@ function handleComputerGuess(playerCity) {
     previousCityContainer.textContent = previousCity;
 
     // next user guess
-    if (!isGuessPossible(previousCity, cities)) {
-      cityMessage.textContent = "all cities guessed";
-    }
+    if (!isGuessPossible(previousCity, cities)) endGame();
   } else {
-    cityMessage.textContent = "all cities guessed";
+    endGame();
   }
 }
 
-function handlePlayClick() {
-  game?.classList.remove("hidden");
-  play?.classList.add("hidden");
+const restart = $("#restart");
+function endGame() {
+  cityMessage.textContent = "all cities guessed";
+  restart.classList.remove("not-visible");
+  console.log(restart);
+}
+
+restart.addEventListener("click", handleRestart);
+
+function handleRestart() {
+  restart.classList.add("not-visible");
+
+  cities = initialCities;
+  previousCity = null;
+
+  cityMessage.innerHTML = "&nbsp;";
+  previousCityContainer.innerHTML = "&nbsp;";
+  city.value = "";
 }

@@ -1,6 +1,6 @@
 ## to-do
 
 - [x] computer guess
-- [ ] restart, home
+- [x] restart, home
 - [ ] 2 players
 - [ ] online

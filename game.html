@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cities</title>
     <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js" type="module"></script>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,9 +16,17 @@
   </head>
   <body>
     <main>
-      <nav>
-        <a href="/game.html">play</a>
-      </nav>
+      <a href="/">home</a>
+      <form id="game">
+        <h1 id="previous-city">&nbsp;</h1>
+        <div class="input-field">
+          <label for="city">city</label>
+          <input type="text" name="city" id="city" />
+          <p id="city-message">&nbsp;</p>
+        </div>
+        <button type="submit">submit</button>
+      </form>
+      <button id="restart" class="not-visible">restart</button>
     </main>
   </body>
 </html>
